@@ -324,7 +324,8 @@ function openSurroundingCells(row, col) {
         for (let j = -1; j <= 1; j++) {
             let newRow = row + i;
             let newCol = col + j;
-            if (newRow >= 0 && newRow < ROWS && newCol >= 0 && newCol < COLS && !revealed[newRow][newCol]) {
+            if (newRow >= 0 && newRow < ROWS && newCol >= 0 && newCol < COLS && !revealed[newRow][newCol] && !isFlag[newRow][newCol]) {
+                animateTearCell(newRow,newCol);
                 revealCell(newRow, newCol);
             }
         }
