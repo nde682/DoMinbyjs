@@ -135,11 +135,13 @@ function animateTearCell(row, col) {
                 ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
                 ctx.strokeRect(x, y, CELL_SIZE, CELL_SIZE);
             }
-
+            
             ctx.fillStyle = '#ddd';
             ctx.fillRect(x, y, tearProgress, CELL_SIZE); // Xé từ trái sang phải
             ctx.strokeRect(x, y, CELL_SIZE, CELL_SIZE);
-
+            if(board[row][col] === 'M' && isFlag[row][col] === false) {
+                ctx.drawImage(bombImage, x, y, CELL_SIZE, CELL_SIZE);
+            }
             tearProgress += tearSpeed;
 
             requestAnimationFrame(tearStep);
@@ -342,14 +344,18 @@ function revealCell(row, col, showNumber = true) {
     let x = col * CELL_SIZE;
     let y = row * CELL_SIZE;
 
+    
+
+    let cellValue = board[row][col];
+    //nếu là mìn thì hiện hình bomb
+    if (cellValue === 'M') {
+        endGame(false);  // Kết thúc game nếu là mìn
+    }
     ctx.fillStyle = '#ddd';
     ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
     ctx.strokeRect(x, y, CELL_SIZE, CELL_SIZE);
-
-    let cellValue = board[row][col];
-    
     // Chỉ hiện số nếu showNumber là true
-    if (showNumber && cellValue !== 0) {
+    if (showNumber && cellValue !== 0 && cellValue !== 'M') {
         // Chọn màu sắc cho từng giá trị
         let color = '#000';  // Màu mặc định là đen
         switch (cellValue) {
@@ -406,6 +412,10 @@ function endGame(win) {
     for (let [row, col] of mines) {
         let x = col * CELL_SIZE;
         let y = row * CELL_SIZE;
+
+        ctx.fillStyle = '#ddd';
+        ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE); // Xé từ trái sang phải
+        ctx.strokeRect(x, y, CELL_SIZE, CELL_SIZE);
          // Thay vì tô màu đỏ, vẽ hình ảnh bomb
         ctx.drawImage(bombImage, x, y, CELL_SIZE, CELL_SIZE);
     }
