@@ -1,0 +1,71 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #fff;
+}
+.game-container {
+    position: relative;
+    min-width: 300px;
+    min-height: 300px;
+}
+.difficultybox {
+    margin: 20px;
+    font-size: 25px;
+}
+.difficultybox select {
+    font-size: 20px;
+}
+.difficultybox button {
+    font-size: 20px;
+}
+canvas {
+    border: 2px solid #000;
+    background-color: #ddd;
+}
+@keyframes flagAnimation {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.flag {
+    animation: flagAnimation 0.3s ease-in-out;
+}
+
+@keyframes unflagAnimation {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
+.unflag {
+    animation: unflagAnimation 0.3s ease-in-out;
+}
+@keyframes bombExplosion {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.bomb {
+    animation: bombExplosion 0.4s ease-in-out forwards;
+}
